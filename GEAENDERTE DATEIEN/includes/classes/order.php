@@ -6,7 +6,7 @@
  * @package classes
  * @copyright Copyright 2003-2019 Zen Cart Development Team
  * @license https://www.zen-cart-pro.at/license/3_0.txt GNU General Public License V3.0
- * @version $Id: order.php for SEPA Lastschrift 2019-12-11 17:07:25Z webchills $
+ * @version $Id: order.php for SEPA Lastschrift 2019-12-11 17:50:25Z webchills $
  */
 /**
  * order class
@@ -1144,6 +1144,7 @@ class order extends base {
 	  $email_order.= MODULE_PAYMENT_SEPALASTSCHRIFT_TEXT_EMAIL_MANDATSREFERENZ . MODULE_PAYMENT_SEPALASTSCHRIFT_REFERENCE_PREFIX . $zf_insert_id."\n";
       } else if  ($_SESSION['payment']=="sepalastschrifteu") {
 	  $email_order.= MODULE_PAYMENT_SEPALASTSCHRIFTEU_TEXT_EMAIL_MANDATSREFERENZ . MODULE_PAYMENT_SEPALASTSCHRIFTEU_REFERENCE_PREFIX . $zf_insert_id."\n"; 
+	  }
     } else {
       $email_order .= EMAIL_TEXT_PAYMENT_METHOD . "\n" .
       EMAIL_SEPARATOR . "\n";
