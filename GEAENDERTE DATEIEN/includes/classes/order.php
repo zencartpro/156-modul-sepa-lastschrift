@@ -4,9 +4,9 @@
  * File contains the order-processing class ("order")
  *
  * @package classes
- * @copyright Copyright 2003-2019 Zen Cart Development Team
+ * @copyright Copyright 2003-2020 Zen Cart Development Team
  * @license https://www.zen-cart-pro.at/license/3_0.txt GNU General Public License V3.0
- * @version $Id: order.php for SEPA Lastschrift 2019-12-11 17:50:25Z webchills $
+ * @version $Id: order.php for SEPA Lastschrift 2020-01-16 20:58:25Z webchills $
  */
 /**
  * order class
@@ -443,7 +443,27 @@ class order extends base {
                               'email_address' => $customer_address->fields['customers_email_address']);
     }
 
-    if ($shipping_address->RecordCount() > 0) {
+    if ($this->content_type == 'virtual') {
+      $this->delivery = array(
+        'firstname' => '',
+        'lastname' => '',
+        'company' => '',
+        'street_address' => '',
+        'suburb' => '',
+        'city' => '',
+        'postcode' => '',
+        'state' => '',
+        'zone_id' => 0,
+        'country' => array(
+        'id' => 0, 
+        'title' => '', 
+        'iso_code_2' => '', 
+        'iso_code_3' => ''
+        ),
+        'country_id' => 0,
+        'format_id' => 0
+      );
+    } elseif ($shipping_address->RecordCount() > 0) {
       $this->delivery = array('firstname' => $shipping_address->fields['entry_firstname'],
                               'lastname' => $shipping_address->fields['entry_lastname'],
                               'company' => $shipping_address->fields['entry_company'],
@@ -580,10 +600,15 @@ class order extends base {
         /*********************************************
          * Calculate taxes for this product
          *********************************************/
+		if (DISPLAY_PRICE_WITH_TAX == 'true') {
         $shown_price = (zen_add_tax($this->products[$index]['final_price'], $this->products[$index]['tax']))
         + zen_add_tax($this->products[$index]['onetime_charges'], $this->products[$index]['tax']);        
         $this->info['subtotal'] += $currencies->value($shown_price)* $this->products[$index]['qty'];
-
+		} else {
+		$shown_price = (zen_add_tax($this->products[$index]['final_price'] * $this->products[$index]['qty'], $this->products[$index]['tax']))
+        + zen_add_tax($this->products[$index]['onetime_charges'], $this->products[$index]['tax']);
+        $this->info['subtotal'] += $shown_price;
+		}
         $this->notify('NOTIFIY_ORDER_CART_SUBTOTAL_CALCULATE', array('shown_price'=>$shown_price));
         // find product's tax rate and description
         $products_tax = $this->products[$index]['tax'];
