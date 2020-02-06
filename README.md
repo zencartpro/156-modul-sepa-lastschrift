@@ -1,6 +1,10 @@
 # 156-modul-sepa-lastschrift
 SEPA Lastschrift für Zen Cart 1.5.6 deutsch
 
+Hinweis: 
+Freigegebene getestete Versionen für den Einsatz in Livesystemen ausschließlich unter Releases herunterladen:
+https://github.com/zencartpro/156-modul-sepa-lastschrift/releases
+
 Mit diesem Modul kann die Zahlungsart SEPA Lastschrift angeboten werden.
 
 Features:
