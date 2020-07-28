@@ -7,6 +7,10 @@ https://github.com/zencartpro/156-modul-sepa-lastschrift/releases
 
 Mit diesem Modul kann die Zahlungsart SEPA Lastschrift angeboten werden.
 
+Hinweis:
+Dieses Modul führt keinen Lastschrifteinzug durch! 
+Es liefert lediglich die Bankdaten, mit denen Sie dann später manuell eine Lastschrift über das entsprechende Interface Ihrer Bank eingeben.
+
 Features:
 
 * Die aktuelle Liste der Bankleitzahlen/BICs aller deutschen Banken sind hinterlegt, so dass die Angaben geprüft werden und Banknamen automatisch ergänzt werden.
